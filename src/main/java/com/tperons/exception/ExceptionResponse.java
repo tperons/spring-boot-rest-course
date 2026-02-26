@@ -1,4 +1,4 @@
-package com.tperons.exceptions;
+package com.tperons.exception;
 
 import java.util.Date;
 

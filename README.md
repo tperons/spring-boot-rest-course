@@ -1,1 +1,1 @@
-# spring-boot-rest-course
+# spring-boot-rest-class

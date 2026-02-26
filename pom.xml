@@ -9,19 +9,33 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tperons</groupId>
-	<artifactId>spring-boot-rest-course</artifactId>
+	<artifactId>spring-boot-rest-class</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-rest-course</name>
+	<name>spring-boot-rest-class</name>
 
 	<properties>
 		<java.version>25</java.version>
 	</properties>
 
 	<dependencies>
+
+	    <dependency>
+	        <groupId>org.postgresql</groupId>
+	        <artifactId>postgresql</artifactId>
+	    </dependency>
+
+
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-data-jpa</artifactId>
+	    </dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -29,6 +43,8 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
