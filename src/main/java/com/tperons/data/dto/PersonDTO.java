@@ -2,7 +2,9 @@ package com.tperons.data.dto;
 
 import java.io.Serializable;
 
-public class PersonDTO implements Serializable {
+import org.springframework.hateoas.RepresentationModel;
+
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

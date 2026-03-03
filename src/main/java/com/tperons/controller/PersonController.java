@@ -26,26 +26,32 @@ public class PersonController {
     @Autowired
     private PersonService service;
 
-    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE })
     public ResponseEntity<List<PersonDTO>> findAll() {
         List<PersonDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE })
     public ResponseEntity<PersonDTO> findById(@PathVariable("id") Long id) {
         PersonDTO obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO obj) {
         obj = service.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
 
-    @PutMapping(value = "/{id}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @PutMapping(value = "/{id}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
     public ResponseEntity<PersonDTO> update(@PathVariable("id") Long id, @RequestBody PersonDTO obj) {
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
