@@ -15,7 +15,7 @@ import com.tperons.data.dto.PersonDTO;
 import com.tperons.entity.Person;
 import com.tperons.exception.RequiredObjectIsNullException;
 import com.tperons.exception.ResourceNotFoundException;
-import com.tperons.mapper.ObjectMapper;
+import com.tperons.mapper.PersonMapper;
 import com.tperons.repository.PersonRepository;
 
 @Service
@@ -26,9 +26,12 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
+    @Autowired
+    private PersonMapper mapper;
+
     public List<PersonDTO> findAll() {
         logger.info("Finding all People!");
-        var people = ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
+        var people = mapper.toDTOList(repository.findAll());
         people.forEach(p -> addHateoasLinks(p));
         return people;
     }
@@ -37,7 +40,7 @@ public class PersonService {
         logger.info("Finding one Person!");
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-        var dto = ObjectMapper.parseObject(entity, PersonDTO.class);
+        var dto = mapper.toDTO(entity);
         addHateoasLinks(dto);
         return dto;
     }
@@ -46,8 +49,8 @@ public class PersonService {
         if (obj == null)
             throw new RequiredObjectIsNullException();
         logger.info("Creating one Person!");
-        var entity = ObjectMapper.parseObject(obj, Person.class);
-        var dto = ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+        var entity = mapper.toEntity(obj);
+        var dto = mapper.toDTO(repository.save(entity));
         addHateoasLinks(dto);
         return dto;
     }
@@ -62,7 +65,7 @@ public class PersonService {
         entity.setLastName(obj.getLastName());
         entity.setAddress(obj.getAddress());
         entity.setGender(obj.getGender());
-        var dto = ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+        var dto = mapper.toDTO(repository.save(entity));
         addHateoasLinks(dto);
         return dto;
     }

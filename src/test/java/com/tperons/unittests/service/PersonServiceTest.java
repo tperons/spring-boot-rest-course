@@ -27,6 +27,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.tperons.data.dto.PersonDTO;
 import com.tperons.entity.Person;
 import com.tperons.exception.RequiredObjectIsNullException;
+import com.tperons.mapper.PersonMapper;
 import com.tperons.repository.PersonRepository;
 import com.tperons.service.PersonService;
 import com.tperons.unittests.mapper.mocks.MockPerson;
@@ -43,6 +44,9 @@ public class PersonServiceTest {
     @Mock
     PersonRepository repository;
 
+    @Mock
+    PersonMapper mapper;
+
     @BeforeEach
     void setUp() {
         input = new MockPerson();
@@ -52,7 +56,11 @@ public class PersonServiceTest {
     @Test
     void testFindAll() {
         List<Person> mockedPeople = input.mockEntityList();
+        List<PersonDTO> mockedDTOs = input.mockDTOList();
+
         when(repository.findAll()).thenReturn(mockedPeople);
+        when(mapper.toDTOList(mockedPeople)).thenReturn(mockedDTOs);
+
         List<PersonDTO> people = service.findAll();
 
         assertNotNull(people);
@@ -88,7 +96,10 @@ public class PersonServiceTest {
     void testFindById() {
         Person person = input.mockEntity(1);
         person.setId(1L);
+
         when(repository.findById(1L)).thenReturn(Optional.of(person));
+        when(mapper.toDTO(person)).thenReturn(input.mockDTO(1));
+
         var result = service.findById(1L);
 
         assertNotNull(result);
@@ -118,12 +129,13 @@ public class PersonServiceTest {
     @Test
     void testCreate() {
         Person person = input.mockEntity(1);
-        Person persisted = person;
-        persisted.setId(1L);
-
+        person.setId(1L);
         PersonDTO dto = input.mockDTO(1);
 
-        when(repository.save(person)).thenReturn(persisted);
+        when(mapper.toEntity(dto)).thenReturn(person);
+        when(repository.save(person)).thenReturn(person);
+        when(mapper.toDTO(person)).thenReturn(dto);
+
         var result = service.create(dto);
 
         assertNotNull(result);
@@ -164,13 +176,13 @@ public class PersonServiceTest {
     @Test
     void testUpdate() {
         Person person = input.mockEntity(1);
-        Person persisted = person;
-        persisted.setId(1L);
-
+        person.setId(1L);
         PersonDTO dto = input.mockDTO(1);
 
         when(repository.findById(1L)).thenReturn(Optional.of(person));
-        when(repository.save(person)).thenReturn(persisted);
+        when(repository.save(person)).thenReturn(person);
+        when(mapper.toDTO(person)).thenReturn(dto);
+
         var result = service.update(1L, dto);
 
         assertNotNull(result);

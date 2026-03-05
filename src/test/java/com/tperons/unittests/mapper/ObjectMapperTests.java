@@ -1,6 +1,4 @@
 package com.tperons.unittests.mapper;
-import static com.tperons.mapper.ObjectMapper.parseListObjects;
-import static com.tperons.mapper.ObjectMapper.parseObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -10,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.tperons.data.dto.PersonDTO;
 import com.tperons.entity.Person;
+import com.tperons.mapper.PersonMapper;
 import com.tperons.unittests.mapper.mocks.MockPerson;
 
 public class ObjectMapperTests {
@@ -22,7 +21,7 @@ public class ObjectMapperTests {
 
     @Test
     public void parseEntityToDTOTest() {
-        PersonDTO output = parseObject(inputObject.mockEntity(), PersonDTO.class);
+        PersonDTO output = PersonMapper.INSTANCE.toDTO(inputObject.mockEntity());
         assertEquals(Long.valueOf(0L), output.getId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
@@ -32,7 +31,7 @@ public class ObjectMapperTests {
 
     @Test
     public void parseEntityListToDTOListTest() {
-        List<PersonDTO> outputPeople = parseListObjects(inputObject.mockEntityList(), PersonDTO.class);
+        List<PersonDTO> outputPeople = PersonMapper.INSTANCE.toDTOList(inputObject.mockEntityList());
         PersonDTO outputZero = outputPeople.get(0);
 
         assertEquals(Long.valueOf(0L), outputZero.getId());
@@ -60,7 +59,7 @@ public class ObjectMapperTests {
 
     @Test
     public void parseDTOToEntityTest() {
-        Person output = parseObject(inputObject.mockDTO(), Person.class);
+        Person output = PersonMapper.INSTANCE.toEntity(inputObject.mockDTO());
         assertEquals(Long.valueOf(0L), output.getId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
@@ -70,7 +69,7 @@ public class ObjectMapperTests {
 
     @Test
     public void parserDTOListToEntityListTest() {
-        List<Person> outputPeople = parseListObjects(inputObject.mockDTOList(), Person.class);
+        List<Person> outputPeople = PersonMapper.INSTANCE.toEntityList(inputObject.mockDTOList());
         Person outputZero = outputPeople.get(0);
 
         assertEquals(Long.valueOf(0L), outputZero.getId());
