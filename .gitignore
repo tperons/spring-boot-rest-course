@@ -34,3 +34,6 @@ build/
 
 ### ENVIRONMENT VARIABLES
 .env
+
+### OTHERS ###
+**/.DS_Store

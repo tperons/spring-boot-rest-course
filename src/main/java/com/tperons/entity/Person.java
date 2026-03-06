@@ -19,16 +19,16 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, length = 16)
+    @Column(name = "first_name", nullable = false, length = 32)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 16)
+    @Column(name = "last_name", nullable = false, length = 32)
     private String lastName;
 
-    @Column(name = "address", nullable = false, length = 124)
+    @Column(name = "address", nullable = false, length = 128)
     private String address;
 
-    @Column(name = "gender", nullable = false, length = 12)
+    @Column(name = "gender", nullable = false, length = 16)
     private String gender;
 
     @Column(name = "enabled", nullable = false)
