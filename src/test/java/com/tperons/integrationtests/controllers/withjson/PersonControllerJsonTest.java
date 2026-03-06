@@ -1,4 +1,4 @@
-package com.tperons.integrationtests.controller.withjson;
+package com.tperons.integrationtests.controllers.withjson;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,7 +26,7 @@ import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PersonControllerTest extends AbstractIntegrationTest {
+public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
     private static RequestSpecification specification;
     private static ObjectMapper objectMapper;
@@ -60,6 +60,7 @@ public class PersonControllerTest extends AbstractIntegrationTest {
                 .post()
                 .then()
                 .statusCode(201)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .extract()
                 .body()
                 .asString();
@@ -71,19 +72,11 @@ public class PersonControllerTest extends AbstractIntegrationTest {
         assertNotNull(createdPerson.getLastName());
         assertNotNull(createdPerson.getAddress());
         assertNotNull(createdPerson.getGender());
-
-    }
-
-
-
-    @Test
-    void testFindAll() {
-
     }
 
     @Test
-    @Order(3)
-    void testFindById() throws JsonProcessingException{
+    @Order(2)
+    void testFindById() throws JsonProcessingException {
         mockPerson();
 
         specification = new RequestSpecBuilder()
@@ -114,21 +107,12 @@ public class PersonControllerTest extends AbstractIntegrationTest {
         assertNotNull(createdPerson.getGender());
     }
 
-    @Test
-    void testUpdate() {
-
-    }
-
-    @Test
-    void testDelete() {
-
-    }
-
     private void mockPerson() {
         person.setFirstName("Richard");
         person.setLastName("Stallman");
         person.setAddress("New York");
         person.setGender("Male");
+        person.setEnabled(true);
     }
 
 }

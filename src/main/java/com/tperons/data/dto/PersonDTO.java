@@ -13,16 +13,18 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     private String lastName;
     private String address;
     private String gender;
+    private Boolean enabled;
 
     public PersonDTO() {
     }
 
-    public PersonDTO(Long id, String firstName, String lastName, String address, String gender) {
+    public PersonDTO(Long id, String firstName, String lastName, String address, String gender, Boolean enabled) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.gender = gender;
+        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -65,11 +67,24 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
         this.gender = gender;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
+        int result = super.hashCode();
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+        result = prime * result + ((enabled == null) ? 0 : enabled.hashCode());
         return result;
     }
 
@@ -79,6 +94,8 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
             return true;
         if (obj == null)
             return false;
+        if (!super.equals(obj))
+            return false;
         if (getClass() != obj.getClass())
             return false;
         PersonDTO other = (PersonDTO) obj;
@@ -86,6 +103,31 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
+            return false;
+        if (firstName == null) {
+            if (other.firstName != null)
+                return false;
+        } else if (!firstName.equals(other.firstName))
+            return false;
+        if (lastName == null) {
+            if (other.lastName != null)
+                return false;
+        } else if (!lastName.equals(other.lastName))
+            return false;
+        if (address == null) {
+            if (other.address != null)
+                return false;
+        } else if (!address.equals(other.address))
+            return false;
+        if (gender == null) {
+            if (other.gender != null)
+                return false;
+        } else if (!gender.equals(other.gender))
+            return false;
+        if (enabled == null) {
+            if (other.enabled != null)
+                return false;
+        } else if (!enabled.equals(other.enabled))
             return false;
         return true;
     }
