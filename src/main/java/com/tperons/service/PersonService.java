@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,17 +35,17 @@ public class PersonService {
 
     private Logger logger = LoggerFactory.getLogger(PersonService.class);
 
-    @Autowired
-    private PersonRepository repository;
+    private final PersonRepository repository;
+    private final PersonMapper mapper;
+    private final FileImporterFactory importerFactory;
+    private final FileExporterFactory exporterFactory;
 
-    @Autowired
-    private PersonMapper mapper;
-
-    @Autowired
-    FileImporterFactory importerFactory;
-
-    @Autowired
-    FileExporterFactory exporterFactory;
+    public PersonService(PersonRepository repository, PersonMapper mapper, FileImporterFactory importerFactory, FileExporterFactory exporterFactory) {
+        this.repository = repository;
+        this.mapper = mapper;
+        this.importerFactory = importerFactory;
+        this.exporterFactory = exporterFactory;
+    }
 
     public Page<PersonDTO> findAll(Pageable pageable) {
         logger.info("Finding all People!");

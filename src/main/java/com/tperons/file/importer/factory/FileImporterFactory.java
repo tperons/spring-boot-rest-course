@@ -2,7 +2,6 @@ package com.tperons.file.importer.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +15,11 @@ public class FileImporterFactory {
 
     private Logger logger = LoggerFactory.getLogger(FileImporterFactory.class);
 
-    @Autowired
-    private ApplicationContext context;
+    private final ApplicationContext context;
+
+    public FileImporterFactory(ApplicationContext context) {
+        this.context = context;
+    }
 
     public FileImporter getImporter(String fileName) throws Exception {
         logger.info("Determining file importer for file: {}", fileName);

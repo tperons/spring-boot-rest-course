@@ -2,7 +2,6 @@ package com.tperons.file.exporter.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +16,11 @@ public class FileExporterFactory {
 
     private Logger logger = LoggerFactory.getLogger(FileExporterFactory.class);
 
-    @Autowired
-    private ApplicationContext context;
+    private final ApplicationContext context;
+
+    public FileExporterFactory(ApplicationContext context) {
+        this.context = context;
+    }
 
     public FileExporter getExporter(String acceptHeader) throws Exception {
         logger.info("Determining file exporter for Accept header: {}", acceptHeader);
