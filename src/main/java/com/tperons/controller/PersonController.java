@@ -46,7 +46,7 @@ public class PersonController implements PersonControllerDocs {
     }
 
     @Override
-    @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PagedModel<EntityModel<PersonDTO>>> findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "12") Integer size,
@@ -59,14 +59,14 @@ public class PersonController implements PersonControllerDocs {
     }
 
     @Override
-    @GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> findById(@PathVariable("id") Long id) {
         PersonDTO obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @Override
-    @GetMapping(value = "/search", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PagedModel<EntityModel<PersonDTO>>> findByName(
             @RequestParam(value = "firstName") String firstName,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -94,26 +94,29 @@ public class PersonController implements PersonControllerDocs {
         String contentType = acceptHeader != null ? acceptHeader : "application/octet-stream";
         String fileExtension = MediaTypes.APPLICATION_CSV_VALUE.equalsIgnoreCase(acceptHeader) ? ".csv" : ".xlsx";
         String fileName = "people_exported_" + page + fileExtension;
-        return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(fileResource);
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
+                .body(fileResource);
     }
 
     @Override
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO obj) {
         PersonDTO savedObj = service.create(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedObj.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedObj.getId())
+                .toUri();
         return ResponseEntity.created(uri).body(savedObj);
     }
 
     @Override
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PersonDTO>> massCreation(@RequestParam("file") MultipartFile file) {
         List<PersonDTO> dtos = service.massCreation(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(dtos);
     }
 
     @Override
-    @PutMapping(value = "/{id}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> update(@PathVariable("id") Long id, @RequestBody PersonDTO obj) {
         PersonDTO updatedObj = service.update(id, obj);
         return ResponseEntity.ok().body(updatedObj);
@@ -127,7 +130,7 @@ public class PersonController implements PersonControllerDocs {
     }
 
     @Override
-    @PatchMapping(value = "/{id}/disable", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE })
+    @PatchMapping(value = "/{id}/disable", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> disablePerson(@PathVariable("id") Long id) {
         PersonDTO obj = service.disablePerson(id);
         return ResponseEntity.ok().body(obj);

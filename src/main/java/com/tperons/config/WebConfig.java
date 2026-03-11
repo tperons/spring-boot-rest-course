@@ -22,15 +22,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 
-        // Via HEADER PARAM http://localhost:8080/api/v1/person
         configurer.favorParameter(false)
                 .ignoreAcceptHeader(false)
                 .useRegisteredExtensionsOnly(false)
                 .defaultContentType(MediaType.APPLICATION_JSON)
-                .mediaType("json", MediaType.APPLICATION_JSON)
-                .mediaType("xml", MediaType.APPLICATION_XML)
-                .mediaType("yaml", MediaType.APPLICATION_YAML);
-
+                .mediaType("json", MediaType.APPLICATION_JSON);
     }
 
 }

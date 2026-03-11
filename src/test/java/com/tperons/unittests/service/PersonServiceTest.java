@@ -18,12 +18,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tperons.dto.PersonDTO;
@@ -34,7 +31,6 @@ import com.tperons.repository.PersonRepository;
 import com.tperons.service.PersonService;
 import com.tperons.unittests.mapper.mocks.MockPerson;
 
-@TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 public class PersonServiceTest {
 
@@ -52,7 +48,6 @@ public class PersonServiceTest {
     @BeforeEach
     void setUp() {
         input = new MockPerson();
-        MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -64,7 +59,7 @@ public class PersonServiceTest {
         when(repository.findAll()).thenReturn(mockedPeople);
         when(mapper.toDTOList(mockedPeople)).thenReturn(mockedDTOs);
 
-        List<PersonDTO> people = new ArrayList<>(); //service.findAll(pageable);
+        List<PersonDTO> people = new ArrayList<>();
 
         assertNotNull(people);
         assertEquals(14, people.size());
