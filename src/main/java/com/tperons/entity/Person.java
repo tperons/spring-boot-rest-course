@@ -34,7 +34,7 @@ public class Person implements Serializable {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    public Person() {
+    protected Person() {
     }
 
     public Person(Long id, String firstName, String lastName, String address, String gender, Boolean enabled) {

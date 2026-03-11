@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Tag(name = "People", description = "Endpoints to Manage People")
-@ApiResponses({ @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content), @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content), @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content) })
+@ApiResponses({ @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content), @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content), @ApiResponse(description = "Forbidden", responseCode = "403", content = @Content), @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content) })
 public interface PersonControllerDocs {
 
     @Operation(summary = "Finds all People", description = "Returns a list with all people.", tags = {
