@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Connection"/>
 	<parameter name="PERSON_ID" class="java.lang.Long"/>
 	<parameter name="SUB_REPORT_DATA_SOURCE" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<parameter name="QR_CODEIMAGE" class="java.io.InputStream"/>
+	<parameter name="QR_CODE_IMAGE" class="java.io.InputStream"/>
 	<parameter name="BOOK_SUB_REPORT" class="net.sf.jasperreports.engine.JasperReport"/>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>
@@ -81,7 +81,7 @@
 			<expression><![CDATA[$F{photoUrl}]]></expression>
 		</element>
 		<element kind="image" uuid="0d5cc007-cb93-42a4-a23b-400c166126fe" x="230" y="0" width="150" height="140">
-			<expression><![CDATA[$P{QR_CODEIMAGE}]]></expression>
+			<expression><![CDATA[$P{QR_CODE_IMAGE}]]></expression>
 		</element>
 	</title>
 	<detail>

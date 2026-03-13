@@ -25,10 +25,10 @@ public class XlsxExporter implements PersonExporter {
     public Resource exportPeople(List<PersonDTO> people) throws Exception {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("People");
-            Row headeRow = sheet.createRow(0);
+            Row headerRow = sheet.createRow(0);
             String[] headers = { "ID", "First Name", "Last Name", "Address", "Gender", "Enabled" };
             for (int i = 0; i < headers.length; i++) {
-                Cell cell = headeRow.createCell(i);
+                Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
                 cell.setCellStyle(createHeaderCellStyle(workbook));
             }

@@ -43,7 +43,7 @@ public class FileStorageService {
         try {
             if (fileName.contains("..")) {
                 logger.error("Filename contains a invalid path sequence " + fileName + ".");
-                throw new FileStorageException("Filename contains a invalid path sequence " + fileName + ".");
+                throw new FileStorageException("Filename contains an invalid path sequence " + fileName + ".");
             }
             logger.info("Saving file in disk.");
             Path targetLocation = this.fileStorageLocation.resolve(fileName);

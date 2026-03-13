@@ -57,7 +57,7 @@ public interface PersonControllerDocs {
             @Parameter(description = "Ordering direction") String direction,
             @Parameter(hidden = true) PagedResourcesAssembler<PersonDTO> assembler);
 
-    @Operation(summary = "Export Person", description = "Export a  specific person data as PDF by their ID.", tags = {
+    @Operation(summary = "Export Person", description = "Export a specific person data as PDF by their ID.", tags = {
             "People" }, responses = { @ApiResponse(description = "Success", responseCode = "200", content = {
                     @Content(mediaType = MediaTypes.APPLICATION_PDF_VALUE) }),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content) })

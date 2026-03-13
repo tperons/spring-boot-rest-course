@@ -82,12 +82,12 @@ public class PersonService {
             return exporter.exportPerson(dto);
         } catch (Exception e) {
             logger.error("Error on file export");
-            throw new RuntimeException("File generate error.", e);
+            throw new RuntimeException("File generation error.", e);
         }
     }
 
     public Resource exportPage(Pageable pageable, String acceptHeader) {
-        logger.info("Finding all People!");
+        logger.info("Exporting page of People!");
         Page<Person> personPage = repository.findAll(pageable);
         List<PersonDTO> dtoList = personPage.getContent().stream().map(p -> mapper.toDTO(p)).toList();
         try {
@@ -152,7 +152,7 @@ public class PersonService {
 
     @Transactional
     public PersonDTO disablePerson(Long id) {
-        logger.info("Disabling one Person");
+        logger.info("Disabling one Person!");
         repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for the ID!"));
         repository.disablePerson(id);
         var entity = repository.findById(id).get();

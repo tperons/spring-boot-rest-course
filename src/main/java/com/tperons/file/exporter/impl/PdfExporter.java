@@ -62,13 +62,13 @@ public class PdfExporter implements PersonExporter {
         JasperReport mainReport = JasperCompileManager.compileReport(mainTemplateStream);
         JasperReport subReport = JasperCompileManager.compileReport(subReportStream);
 
-        InputStream qrCodeStrem = qrCodeService.generateQRCode(person.getProfileUrl(), 200, 200);
+        InputStream qrCodeStream = qrCodeService.generateQRCode(person.getProfileUrl(), 200, 200);
         JRBeanCollectionDataSource subReportDataSource = new JRBeanCollectionDataSource(person.getBooks());
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("SUB_REPORT_DATA_SOURCE", subReportDataSource);
         parameters.put("BOOK_SUB_REPORT", subReport);
-        parameters.put("QR_CODEIMAGE", qrCodeStrem);
+        parameters.put("QR_CODE_IMAGE", qrCodeStream);
 
         JRBeanCollectionDataSource mainDataSource = new JRBeanCollectionDataSource(Collections.singletonList(person));
 
